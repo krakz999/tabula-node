@@ -85,24 +85,22 @@ export async function extractTables(
   options?: ExtractOptions
 ) {
   const args = Object.entries(options || {}).flatMap(([key, value]) => {
-    key = key.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+    key =
+      '--' + key.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
 
     if (typeof value === 'boolean') {
-      return value ? [`--${key}`] : [];
+      return value ? [key] : [];
     } else if (Array.isArray(value)) {
-      return value.flatMap((v) => [`--${key}`, v]);
+      return value.flatMap((v) => [key, v]);
     } else {
-      return [`--${key}`, value];
+      return [key, value];
     }
   });
 
   const command = `java -jar ${libPath} ${args.join(' ')} ${filePath}`;
 
   return new Promise<string>((resolve, reject) => {
-    const result = shell.exec(command, { silent: true });
-
-    result.code !== 0
-      ? reject(new Error(result.stderr))
-      : resolve(result.stdout);
+    const { code, stderr, stdout } = shell.exec(command, { silent: true });
+    code !== 0 ? reject(new Error(stderr)) : resolve(stdout);
   });
 }
