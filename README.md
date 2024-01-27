@@ -13,8 +13,8 @@ To use this package, install it via your favourite package manager:
     import { extractTables } from '@krakz999/tabula-node';
 
     const results = await extractTables("./test.pdf", {
-        pages:"all",
-        guess:true
+        pages: "all",
+        guess: true
     });
 
     console.log(results);
