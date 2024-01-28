@@ -20,14 +20,13 @@
   ],
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "dts build && yarn postbuild",
-    "postbuild": "copyfiles -u 1 ./src/lib/tabula-1.0.5-with-dependencies.jar dist",
+    "build": "dts build && yarn copy",
     "lint": "dts lint",
-    "prepare": "dts build && yarn postbuild",
+    "copy": "copyfiles -u 1 \"./src/lib/tabula-1.0.5-with-dependencies.jar\" \"dist\"",
+    "prepare": "dts build && yarn copy",
     "size": "size-limit",
-    "start": "dts watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc-watch --onSuccess \"yalc push\""
+    "yalc:push": "yarn copy && yalc push",
+    "dev": "dts watch --onSuccess 'yarn yalc:push'"
   },
   "husky": {
     "hooks": {
@@ -64,7 +63,6 @@
     "dts-cli": "^2.0.4",
     "husky": "^9.0.6",
     "size-limit": "^11.0.2",
-    "tsc-watch": "^6.0.4",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   },
