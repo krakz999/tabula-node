@@ -58,15 +58,11 @@
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.2",
     "@tsconfig/recommended": "^1.0.3",
-    "@types/shelljs": "^0.8.15",
     "copyfiles": "^2.4.1",
     "dts-cli": "^2.0.4",
     "husky": "^9.0.6",
     "size-limit": "^11.0.2",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "shelljs": "^0.8.5"
   }
 }
