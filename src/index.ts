@@ -1,4 +1,4 @@
-import shell from 'shelljs';
+import { exec } from 'child_process';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -11,11 +11,6 @@ export interface ExtractOptions {
    * Default is entire page.
    */
   area?: string | string[];
-
-  /**
-   * Convert all .pdfs in the provided directory.
-   */
-  batch?: string;
 
   /**
    * X coordinates of column boundaries. Example "10.1,20.2,30.3".
@@ -100,7 +95,9 @@ export async function extractTables(
   const command = `java -jar ${libPath} ${args.join(' ')} ${filePath}`;
 
   return new Promise<string>((resolve, reject) => {
-    const { code, stderr, stdout } = shell.exec(command, { silent: true });
-    code !== 0 ? reject(new Error(stderr)) : resolve(stdout);
+    exec(command, (error, stdout, stderr) => {
+      if (error) reject(new Error(stderr));
+      resolve(stdout);
+    });
   });
 }
