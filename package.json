@@ -1,6 +1,6 @@
 {
   "name": "@krakz999/tabula-node",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A package for extracting tables from PDF files written in Typescript, build on top of tabula-java.",
   "license": "MIT",
   "author": "Martin",
